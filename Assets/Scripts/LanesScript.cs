@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoursesScript : MonoBehaviour
+public class LanesScript : MonoBehaviour
 {
     public Material courseMaterial;
 
@@ -19,16 +19,16 @@ public class CoursesScript : MonoBehaviour
         // TODO: adjust size according to screen resolution
         switch (this.name)
         {
-            case "LeftTopCourse":
+            case "LeftTopLane":
                 setLeftTopPosition(renderer);
                 break;
-            case "LeftBottomCourse":
+            case "LeftBottomLane":
                 setLeftBottomPosition(renderer);
                 break;
-            case "RightTopCourse":
+            case "RightTopLane":
                 setRightTopPosition(renderer);
                 break;
-            case "RightBottomCourse":
+            case "RightBottomLane":
                 setRightBottomPosition(renderer);
                 break;
         }
