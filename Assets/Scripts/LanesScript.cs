@@ -20,16 +20,16 @@ public class LanesScript : MonoBehaviour
         switch (this.name)
         {
             case "LeftTopLane":
-                setLeftTopPosition(renderer);
+                SetLeftTopPosition(renderer);
                 break;
             case "LeftBottomLane":
-                setLeftBottomPosition(renderer);
+                SetLeftBottomPosition(renderer);
                 break;
             case "RightTopLane":
-                setRightTopPosition(renderer);
+                SetRightTopPosition(renderer);
                 break;
             case "RightBottomLane":
-                setRightBottomPosition(renderer);
+                SetRightBottomPosition(renderer);
                 break;
         }
     }
@@ -39,28 +39,28 @@ public class LanesScript : MonoBehaviour
 
     }
 
-    void setLeftTopPosition(LineRenderer renderer)
+    void SetLeftTopPosition(LineRenderer renderer)
     {
         renderer.SetPosition(0, new Vector3(-8f, 1.5f, -5.0f));
         renderer.SetPosition(1, new Vector3(-1.5f, 1.5f, -5.0f));
         renderer.SetPosition(2, new Vector3(-1.5f, 5f, -5.0f));
     }
 
-    void setLeftBottomPosition(LineRenderer renderer)
+    void SetLeftBottomPosition(LineRenderer renderer)
     {
         renderer.SetPosition(0, new Vector3(-8f, -1.5f, -5.0f));
         renderer.SetPosition(1, new Vector3(-1.5f, -1.5f, -5.0f));
         renderer.SetPosition(2, new Vector3(-1.5f, -5f, -5.0f));
     }
     
-    void setRightTopPosition(LineRenderer renderer)
+    void SetRightTopPosition(LineRenderer renderer)
     {
         renderer.SetPosition(0, new Vector3(8f, 1.5f, -5.0f));
         renderer.SetPosition(1, new Vector3(1.5f, 1.5f, -5.0f));
         renderer.SetPosition(2, new Vector3(1.5f, 5f, -5.0f));
     }
     
-    void setRightBottomPosition(LineRenderer renderer)
+    void SetRightBottomPosition(LineRenderer renderer)
     {
         renderer.SetPosition(0, new Vector3(8f, -1.5f, -5.0f));
         renderer.SetPosition(1, new Vector3(1.5f, -1.5f, -5.0f));

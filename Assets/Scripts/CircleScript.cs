@@ -12,8 +12,8 @@ public class CircleScript : MonoBehaviour
         int width = Screen.width;
         int height = Screen.height;
 
-        float theta_scale = 0.01f;
-        int size = (int)(2.0f * Mathf.PI / theta_scale);
+        float thetaScale = 0.01f;
+        int size = (int)(2.0f * Mathf.PI / thetaScale);
 
         LineRenderer renderer = gameObject.GetComponent<LineRenderer>();
         renderer.material = circleMaterial;
@@ -22,7 +22,7 @@ public class CircleScript : MonoBehaviour
 
         int i = 0;
         float x, y;
-        float r = 1.0f;
+        float r = 0.8f;
         for (float theta = 0f; theta <= 2 * Mathf.PI; theta += 0.01f)
         {
             x = r * Mathf.Cos(theta);
