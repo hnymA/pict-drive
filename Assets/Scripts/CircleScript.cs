@@ -22,7 +22,7 @@ public class CircleScript : MonoBehaviour
         int i = 0;
         float x, y;
         float r = 0.8f;
-        for (float theta = 0f; theta <= 2 * Mathf.PI; theta += 0.01f)
+        for (float theta = 0f; theta < 2 * Mathf.PI; theta += 0.01f)
         {
             x = r * Mathf.Cos(theta);
             y = r * Mathf.Sin(theta);

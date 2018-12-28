@@ -1,18 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CarScript : MonoBehaviour
 {
-    void Start()
+    private Boolean hasStopped = false;
+    private void Start()
     {
         
     }
 
-    void Update()
+    private void Update()
     {
-        Move();
-        
+        if(!hasStopped) Move();   
     }
 
     private void Move()
@@ -22,4 +23,10 @@ public class CarScript : MonoBehaviour
         tmp.x += 0.03f;
         transform.position = tmp;
     }
+
+    private void OnTriggerEnter (Collider other)
+    {
+        hasStopped = true;
+    }
+    
 }

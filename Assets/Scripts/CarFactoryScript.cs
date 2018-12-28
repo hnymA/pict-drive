@@ -8,7 +8,7 @@ public class CarFactoryScript : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("SpawnCar", 5.0f, 10.0f);
+        InvokeRepeating("SpawnCar", 1.0f, 10.0f);
     }
 
     private void Update()
