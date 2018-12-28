@@ -6,8 +6,7 @@ public class CircleScript : MonoBehaviour
 {
     public Material circleMaterial;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         int width = Screen.width;
         int height = Screen.height;
@@ -34,8 +33,7 @@ public class CircleScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
