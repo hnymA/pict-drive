@@ -13,7 +13,7 @@ public class TrafficLightsScript : MonoBehaviour
     private GameObject greenSignalObject;
     private GameObject redSignalObject;
 
-    void Start()
+    private void Start()
     {
         int width = Screen.width;
         int height = Screen.height;
@@ -48,7 +48,7 @@ public class TrafficLightsScript : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         // TODO: switch traffic light signal
 
@@ -72,7 +72,7 @@ public class TrafficLightsScript : MonoBehaviour
         }
     }
 
-    void SetLeftTopFramePosition(LineRenderer renderer)
+    private void SetLeftTopFramePosition(LineRenderer renderer)
     {
         this.transform.position = new Vector3(-3f, 2.5f, -5.0f);
         Vector3 parent = this.transform.position;
@@ -82,7 +82,7 @@ public class TrafficLightsScript : MonoBehaviour
         renderer.SetPosition(2, new Vector3(parent.x + 0.5f, parent.y - 0.3f, -5.0f));
     }
 
-    void SetLeftBottomFramePosition(LineRenderer renderer)
+    private void SetLeftBottomFramePosition(LineRenderer renderer)
     {
         this.transform.position = new Vector3(-3f, -2.5f, -5.0f);
         Vector3 parent = this.transform.position;
@@ -92,7 +92,7 @@ public class TrafficLightsScript : MonoBehaviour
         renderer.SetPosition(2, new Vector3(parent.x + 0.5f, parent.y - 0.3f, -5.0f));
     }
 
-    void SetRightTopFramePosition(LineRenderer renderer)
+    private void SetRightTopFramePosition(LineRenderer renderer)
     {
         this.transform.position = new Vector3(3f, 2.5f, -5.0f);
         Vector3 parent = this.transform.position;
@@ -102,7 +102,7 @@ public class TrafficLightsScript : MonoBehaviour
         renderer.SetPosition(2, new Vector3(parent.x + 0.5f, parent.y - 0.3f, -5.0f));
     }
 
-    void SetRightBottomFramePosition(LineRenderer renderer)
+    private void SetRightBottomFramePosition(LineRenderer renderer)
     {
         this.transform.position = new Vector3(3f, -2.5f, -5.0f);
         Vector3 parent = this.transform.position;
@@ -112,7 +112,7 @@ public class TrafficLightsScript : MonoBehaviour
         renderer.SetPosition(2, new Vector3(parent.x + 0.5f, parent.y - 0.3f, -5.0f));
     }
 
-    void SetLeftTopSignalPosition(GameObject greenSignal, GameObject redSignal)
+    private void SetLeftTopSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
         Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
@@ -126,7 +126,7 @@ public class TrafficLightsScript : MonoBehaviour
         redSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
     }
 
-    void SetLeftBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
+    private void SetLeftBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
         Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
@@ -140,7 +140,7 @@ public class TrafficLightsScript : MonoBehaviour
         redSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
     }
 
-    void SetRightTopSignalPosition(GameObject greenSignal, GameObject redSignal)
+    private void SetRightTopSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
         Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
@@ -154,7 +154,7 @@ public class TrafficLightsScript : MonoBehaviour
         redSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
     }
 
-    void SetRightBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
+    private void SetRightBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
         Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();

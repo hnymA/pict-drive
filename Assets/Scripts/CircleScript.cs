@@ -6,8 +6,7 @@ public class CircleScript : MonoBehaviour
 {
     public Material circleMaterial;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         int width = Screen.width;
         int height = Screen.height;
@@ -23,7 +22,7 @@ public class CircleScript : MonoBehaviour
         int i = 0;
         float x, y;
         float r = 0.8f;
-        for (float theta = 0f; theta <= 2 * Mathf.PI; theta += 0.01f)
+        for (float theta = 0f; theta < 2 * Mathf.PI; theta += 0.01f)
         {
             x = r * Mathf.Cos(theta);
             y = r * Mathf.Sin(theta);
@@ -34,8 +33,7 @@ public class CircleScript : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         
     }
