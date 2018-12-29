@@ -19,7 +19,7 @@ public class CircleScript : MonoBehaviour
         renderer.SetWidth(0.1f, 0.1f);
         renderer.SetVertexCount(size);
 
-        int i = 0;
+        int count = 0;
         float x, y;
         float r = 0.8f;
         for (float theta = 0f; theta < 2 * Mathf.PI; theta += 0.01f)
@@ -28,8 +28,11 @@ public class CircleScript : MonoBehaviour
             y = r * Mathf.Sin(theta);
 
             Vector3 pos = new Vector3(x, y, -5.0f);
-            renderer.SetPosition(i, pos);
-            i += 1;
+            if (count < size)
+            {
+                renderer.SetPosition(count, pos);                
+                count += 1;
+            }
         }
     }
 

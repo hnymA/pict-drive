@@ -6,76 +6,87 @@ using UnityEngine.UI;
 public class TrafficSignalsScript : MonoBehaviour
 {
     public Material frameMaterial;
-    public Material greenSignalMaterial;
-    public Material redSignalMaterial;
 
-    private GameObject frameObject;
-    private GameObject greenSignalObject;
-    private GameObject redSignalObject;
+    private GameObject _frameObject;
+    private GameObject _greenSignalObject;
+    private GameObject _redSignalObject;
+    
+    private static readonly Dictionary<string, bool> _isGreenDictionary = new Dictionary<string, bool>();
 
     private void Start()
     {
         int width = Screen.width;
         int height = Screen.height;
 
-        this.frameObject = gameObject.transform.Find("Frame").gameObject;
-        this.greenSignalObject = gameObject.transform.Find("GreenSignal").gameObject;
-        this.redSignalObject = gameObject.transform.Find("RedSignal").gameObject;
+        _frameObject = gameObject.transform.Find("Frame").gameObject;
+        _greenSignalObject = gameObject.transform.Find("GreenSignal").gameObject;
+        _redSignalObject = gameObject.transform.Find("RedSignal").gameObject;
         
-        LineRenderer renderer = frameObject.GetComponent<LineRenderer>();
+        LineRenderer renderer = _frameObject.GetComponent<LineRenderer>();
         renderer.material = frameMaterial;
         renderer.SetWidth(0.1f, 0.1f);
         renderer.SetVertexCount(3);
 
-        switch (this.name)
+        switch (name)
         {
             case "LeftTopTrafficSignal":
                 SetLeftTopFramePosition(renderer);
-                SetLeftTopSignalPosition(greenSignalObject, redSignalObject);
+                SetLeftTopSignalPosition(_greenSignalObject, _redSignalObject);
                 break;
             case "LeftBottomTrafficSignal":
                 SetLeftBottomFramePosition(renderer);
-                SetLeftBottomSignalPosition(greenSignalObject, redSignalObject);
+                SetLeftBottomSignalPosition(_greenSignalObject, _redSignalObject);
                 break;
             case "RightTopTrafficSignal":
                 SetRightTopFramePosition(renderer);
-                SetRightTopSignalPosition(greenSignalObject, redSignalObject);
+                SetRightTopSignalPosition(_greenSignalObject, _redSignalObject);
                 break;
             case "RightBottomTrafficSignal":
                 SetRightBottomFramePosition(renderer);
-                SetRightBottomSignalPosition(greenSignalObject, redSignalObject);
+                SetRightBottomSignalPosition(_greenSignalObject, _redSignalObject);
+                break;
+        }
+        
+        // TODO: switch traffic signal
+
+        Image greenSignalImage = _greenSignalObject.GetComponent<Image>();
+        Image redSignalImage = _redSignalObject.GetComponent<Image>();
+        
+        switch (name)
+        {
+            case "LeftTopTrafficSignal":
+                redSignalImage.enabled = false;
+                _isGreenDictionary.Add(name, true);
+                break;
+            case "LeftBottomTrafficSignal":
+                greenSignalImage.enabled = false;
+                _isGreenDictionary.Add(name, false);
+                break;
+            case "RightTopTrafficSignal":
+                greenSignalImage.enabled = false;
+                _isGreenDictionary.Add(name, false);
+                break;
+            case "RightBottomTrafficSignal":
+                redSignalImage.enabled = false;
+                _isGreenDictionary.Add(name, true);
                 break;
         }
     }
 
     private void Update()
     {
-        // TODO: switch traffic light signal
-
-        Image greenSignalImage = greenSignalObject.GetComponent<Image>();
-        Image redSignalImage = redSignalObject.GetComponent<Image>();
         
-        switch (this.name)
-        {
-            case "LeftTopTrafficSignal":
-                redSignalImage.enabled = false;
-                break;
-            case "LeftBottomTrafficSignal":
-                greenSignalImage.enabled = false;
-                break;
-            case "RightTopTrafficSignal":
-                greenSignalImage.enabled = false;
-                break;
-            case "RightBottomTrafficSignal":
-                redSignalImage.enabled = false;
-                break;
-        }
+    }
+
+    public static bool IsGreen(string target)
+    {
+        return _isGreenDictionary[target];
     }
 
     private void SetLeftTopFramePosition(LineRenderer renderer)
     {
-        this.transform.position = new Vector3(-3f, 2.5f, -5.0f);
-        Vector3 parent = this.transform.position;
+        transform.position = new Vector3(-3f, 2.5f, -5.0f);
+        Vector3 parent = transform.position;
 
         renderer.SetPosition(0, new Vector3(parent.x - 0.5f, parent.y + 0.3f, -5.0f));
         renderer.SetPosition(1, new Vector3(parent.x + 0.5f, parent.y + 0.3f, -5.0f));
@@ -84,8 +95,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetLeftBottomFramePosition(LineRenderer renderer)
     {
-        this.transform.position = new Vector3(-3f, -2.5f, -5.0f);
-        Vector3 parent = this.transform.position;
+        transform.position = new Vector3(-3f, -2.5f, -5.0f);
+        Vector3 parent = transform.position;
 
         renderer.SetPosition(0, new Vector3(parent.x - 0.5f, parent.y + 0.3f, -5.0f));
         renderer.SetPosition(1, new Vector3(parent.x + 0.5f, parent.y + 0.3f, -5.0f));
@@ -94,8 +105,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetRightTopFramePosition(LineRenderer renderer)
     {
-        this.transform.position = new Vector3(3f, 2.5f, -5.0f);
-        Vector3 parent = this.transform.position;
+        transform.position = new Vector3(3f, 2.5f, -5.0f);
+        Vector3 parent = transform.position;
 
         renderer.SetPosition(0, new Vector3(parent.x - 0.5f, parent.y + 0.3f, -5.0f));
         renderer.SetPosition(1, new Vector3(parent.x + 0.5f, parent.y + 0.3f, -5.0f));
@@ -104,8 +115,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetRightBottomFramePosition(LineRenderer renderer)
     {
-        this.transform.position = new Vector3(3f, -2.5f, -5.0f);
-        Vector3 parent = this.transform.position;
+        transform.position = new Vector3(3f, -2.5f, -5.0f);
+        Vector3 parent = transform.position;
 
         renderer.SetPosition(0, new Vector3(parent.x - 0.5f, parent.y + 0.3f, -5.0f));
         renderer.SetPosition(1, new Vector3(parent.x + 0.5f, parent.y + 0.3f, -5.0f));
@@ -114,11 +125,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetLeftTopSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
-        Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
         RectTransform redSignalRectTransform = redSignal.GetComponent<RectTransform>();
-        Image greenSignalImage = greenSignal.GetComponent<Image>();
-        Image redSignalImage = redSignal.GetComponent<Image>();
         
         greenSignalRectTransform.localPosition = new Vector3(-0.25f, 0f, 0f);
         greenSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
@@ -128,11 +136,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetLeftBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
-        Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
         RectTransform redSignalRectTransform = redSignal.GetComponent<RectTransform>();
-        Image greenSignalImage = greenSignal.GetComponent<Image>();
-        Image redSignalImage = redSignal.GetComponent<Image>();
         
         greenSignalRectTransform.localPosition = new Vector3(-0.25f, 0f, 0f);
         greenSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
@@ -142,11 +147,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetRightTopSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
-        Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
         RectTransform redSignalRectTransform = redSignal.GetComponent<RectTransform>();
-        Image greenSignalImage = greenSignal.GetComponent<Image>();
-        Image redSignalImage = redSignal.GetComponent<Image>();
         
         greenSignalRectTransform.localPosition = new Vector3(-0.25f, 0f, 0f);
         greenSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
@@ -156,11 +158,8 @@ public class TrafficSignalsScript : MonoBehaviour
 
     private void SetRightBottomSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
-        Vector3 parent = this.transform.position;
         RectTransform greenSignalRectTransform = greenSignal.GetComponent<RectTransform>();
         RectTransform redSignalRectTransform = redSignal.GetComponent<RectTransform>();
-        Image greenSignalImage = greenSignal.GetComponent<Image>();
-        Image redSignalImage = redSignal.GetComponent<Image>();
         
         greenSignalRectTransform.localPosition = new Vector3(-0.25f, 0f, 0f);
         greenSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
