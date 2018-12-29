@@ -6,7 +6,9 @@ using UnityEngine;
 public class TrafficSignsScript : MonoBehaviour
 {
     private static readonly Dictionary<GameObject, bool> _isCenterDictionary = new Dictionary<GameObject, bool>();
+    private static readonly Dictionary<GameObject, string> _trafficModeDictionary = new Dictionary<GameObject, string>();
 
+    // TODO: add more traffic signs
     private GameObject _parent;
     private GameObject _defaultButton;
     private GameObject _diagonalUpButton;
@@ -27,10 +29,22 @@ public class TrafficSignsScript : MonoBehaviour
         {
             _isCenterDictionary.Add(gameObject, true);
         }
+        
+        InitializeTrafficMode();
     }
 
     private void Update()
     {
+    }
+
+    public static string GetCenterSignMode()
+    {
+        string ret = null;
+        foreach (KeyValuePair<GameObject, bool> pair in _isCenterDictionary)
+        {
+            if (pair.Value == true) ret = _trafficModeDictionary[pair.Key];
+        }
+        return ret;
     }
 
     private void FindGameObjects()
@@ -41,6 +55,17 @@ public class TrafficSignsScript : MonoBehaviour
         _roundButton = _parent.transform.Find("Round").gameObject;
         _exclamationButton = _parent.transform.Find("Exclamation").gameObject;
         _questionButton = _parent.transform.Find("Question").gameObject;
+    }
+
+    private void InitializeTrafficMode()
+    {
+        // TODO: randomize control by traffic signs
+
+        if (!_trafficModeDictionary.ContainsKey(_defaultButton)) _trafficModeDictionary.Add(_defaultButton, "StopRed");
+        if (!_trafficModeDictionary.ContainsKey(_diagonalUpButton)) _trafficModeDictionary.Add(_diagonalUpButton, "StopRed");
+        if (!_trafficModeDictionary.ContainsKey(_roundButton)) _trafficModeDictionary.Add(_roundButton, "GoAll");
+        if (!_trafficModeDictionary.ContainsKey(_exclamationButton)) _trafficModeDictionary.Add(_exclamationButton, "StopAll");
+        if (!_trafficModeDictionary.ContainsKey(_questionButton)) _trafficModeDictionary.Add(_questionButton, "StopGreen");
     }
 
     public void OnClick()

@@ -79,13 +79,47 @@ public class CarScript : MonoBehaviour
 
     private void OnTriggerEnter (Collider other)
     {
-        if (!other.name.Contains("StopLine"))
+        if (other.name.Contains("StopLine"))
         {
-            hasStopped = true;
+            CheckTrafficMode(other);
         }
         else
         {
-            hasStopped = !IsGreenSignal(other);            
+            hasStopped = true;            
+        }
+    }
+
+    private void OnTriggerStay (Collider other)
+    {
+        if (other.name.Contains("StopLine"))
+        {
+            CheckTrafficMode(other);
+        }
+        else
+        {
+            hasStopped = true;            
+        }
+    }
+
+    private void CheckTrafficMode(Collider other)
+    {
+        switch (TrafficSignsScript.GetCenterSignMode())
+        {
+            case "GoAll":
+                hasStopped = false;
+                break;
+                    
+            case "StopAll":
+                hasStopped = true;
+                break;
+                    
+            case "StopGreen":
+                hasStopped = IsGreenSignal(other);
+                break;
+                
+            case "StopRed":
+                hasStopped = !IsGreenSignal(other);
+                break;
         }
     }
 
