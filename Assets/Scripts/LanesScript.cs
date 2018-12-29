@@ -17,7 +17,7 @@ public class LanesScript : MonoBehaviour
         renderer.SetVertexCount(3);
 
         // TODO: adjust size according to screen resolution
-        switch (this.name)
+        switch (name)
         {
             case "LeftTopLane":
                 SetLeftTopPosition(renderer);

@@ -18,6 +18,10 @@ public class CarFactoryScript : MonoBehaviour
 
     private void SpawnCar()
     {
-        Instantiate(car, new Vector3(-10.0f, 0.9f, -5.0f), transform.rotation);
+        Quaternion rotation = transform.rotation;
+        Instantiate(car, new Vector3(-10.0f, 0.9f, -5.0f), rotation);
+        Instantiate(car, new Vector3(0.9f, 10.0f, -5.0f), rotation);
+        Instantiate(car, new Vector3(-0.9f, -10.0f, -5.0f), rotation);
+        Instantiate(car, new Vector3(10.0f, -0.9f, -5.0f), rotation);
     }
 }

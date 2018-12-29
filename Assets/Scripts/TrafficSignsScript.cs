@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TrafficSignsScript : MonoBehaviour
 {
-    private static Dictionary<GameObject, bool> _isCenterDictionary = new Dictionary<GameObject, bool>();
+    private static readonly Dictionary<GameObject, bool> _isCenterDictionary = new Dictionary<GameObject, bool>();
 
     private GameObject _parent;
     private GameObject _defaultButton;
@@ -18,7 +18,7 @@ public class TrafficSignsScript : MonoBehaviour
     {
         FindGameObjects();
 
-        if (this.name != "Default")
+        if (name != "Default")
         {
             gameObject.SetActive(false);
             _isCenterDictionary.Add(gameObject, false);

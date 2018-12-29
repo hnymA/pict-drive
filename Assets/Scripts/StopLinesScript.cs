@@ -19,7 +19,7 @@ public class StopLinesScript : MonoBehaviour
         BoxCollider collider = gameObject.GetComponent<BoxCollider>();
 
         // TODO: adjust size according to screen resolution
-        switch (this.name)
+        switch (name)
         {
             case "LeftTopStopLine":
                 SetLeftTopPosition(renderer);
