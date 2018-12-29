@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrafficLightsScript : MonoBehaviour
+public class TrafficSignalsScript : MonoBehaviour
 {
     public Material frameMaterial;
     public Material greenSignalMaterial;
