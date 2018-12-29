@@ -10,6 +10,7 @@ public class TrafficSignalsScript : MonoBehaviour
     private GameObject _frameObject;
     private GameObject _greenSignalObject;
     private GameObject _redSignalObject;
+    private GameObject _counterObject;
     
     private static readonly Dictionary<string, bool> _isGreenDictionary = new Dictionary<string, bool>();
 
@@ -18,40 +19,65 @@ public class TrafficSignalsScript : MonoBehaviour
         int width = Screen.width;
         int height = Screen.height;
 
-        _frameObject = gameObject.transform.Find("Frame").gameObject;
-        _greenSignalObject = gameObject.transform.Find("GreenSignal").gameObject;
-        _redSignalObject = gameObject.transform.Find("RedSignal").gameObject;
+        FindGameObjects();
         
         LineRenderer renderer = _frameObject.GetComponent<LineRenderer>();
+        Image greenSignalImage = _greenSignalObject.GetComponent<Image>();
+        Image redSignalImage = _redSignalObject.GetComponent<Image>();
+        
         renderer.material = frameMaterial;
         renderer.SetWidth(0.1f, 0.1f);
         renderer.SetVertexCount(3);
 
+        InitializeTrafficSignals(renderer);
+        InitializeSignalImages(greenSignalImage, redSignalImage);
+        InitializeCounters();
+    }
+
+    private void Update()
+    {
+        // TODO: switch traffic signal
+        
+        
+    }
+    
+    private void FindGameObjects()
+    {
+        _frameObject = gameObject.transform.Find("Frame").gameObject;
+        _greenSignalObject = gameObject.transform.Find("GreenSignal").gameObject;
+        _redSignalObject = gameObject.transform.Find("RedSignal").gameObject;
+        _counterObject = gameObject.transform.Find("Counter").gameObject;
+    }
+
+    private void InitializeTrafficSignals(LineRenderer renderer)
+    {
         switch (name)
         {
             case "LeftTopTrafficSignal":
                 SetLeftTopFramePosition(renderer);
                 SetLeftTopSignalPosition(_greenSignalObject, _redSignalObject);
+                SetLeftTopCounterPosition(_counterObject);
                 break;
             case "LeftBottomTrafficSignal":
                 SetLeftBottomFramePosition(renderer);
                 SetLeftBottomSignalPosition(_greenSignalObject, _redSignalObject);
+                SetLeftBottomCounterPosition(_counterObject);
                 break;
             case "RightTopTrafficSignal":
                 SetRightTopFramePosition(renderer);
                 SetRightTopSignalPosition(_greenSignalObject, _redSignalObject);
+                SetRightTopCounterPosition(_counterObject);
                 break;
             case "RightBottomTrafficSignal":
                 SetRightBottomFramePosition(renderer);
                 SetRightBottomSignalPosition(_greenSignalObject, _redSignalObject);
+                SetRightBottomCounterPosition(_counterObject);
                 break;
-        }
-        
-        // TODO: switch traffic signal
+        }   
+    }
 
-        Image greenSignalImage = _greenSignalObject.GetComponent<Image>();
-        Image redSignalImage = _redSignalObject.GetComponent<Image>();
-        
+    private void InitializeSignalImages(Image greenSignalImage, Image redSignalImage)
+    {
         switch (name)
         {
             case "LeftTopTrafficSignal":
@@ -72,16 +98,15 @@ public class TrafficSignalsScript : MonoBehaviour
                 break;
         }
     }
-
-    private void Update()
-    {
-        
-    }
-
+    
     public static bool IsGreen(string target)
     {
         return _isGreenDictionary[target];
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void SetLeftTopFramePosition(LineRenderer renderer)
     {
@@ -122,6 +147,10 @@ public class TrafficSignalsScript : MonoBehaviour
         renderer.SetPosition(1, new Vector3(parent.x + 0.5f, parent.y + 0.3f, -5.0f));
         renderer.SetPosition(2, new Vector3(parent.x + 0.5f, parent.y - 0.3f, -5.0f));
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void SetLeftTopSignalPosition(GameObject greenSignal, GameObject redSignal)
     {
@@ -166,4 +195,29 @@ public class TrafficSignalsScript : MonoBehaviour
         redSignalRectTransform.localPosition = new Vector3(0.25f, 0f, 0f);
         redSignalRectTransform.sizeDelta = new Vector2(0.4f, 0.4f);
     }
+    
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    private void SetLeftTopCounterPosition(GameObject counterObject)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void SetLeftBottomCounterPosition(GameObject counterObject)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void SetRightTopCounterPosition(GameObject counterObject)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    private void SetRightBottomCounterPosition(GameObject counterObject)
+    {
+        throw new System.NotImplementedException();
+    }
+
 }
