@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,17 +11,21 @@ public class TrafficSignalsScript : MonoBehaviour
     private GameObject _frameObject;
     private GameObject _greenSignalObject;
     private GameObject _redSignalObject;
-    private GameObject _counterObject;
     
     private static readonly Dictionary<string, bool> _isGreenDictionary = new Dictionary<string, bool>();
+    
+    // TODO: synchronize with counters
+    private const float ChangeTime = 15.0f;
+    private float _remainingTime = ChangeTime;
 
     private void Start()
     {
         int width = Screen.width;
         int height = Screen.height;
+//        CountersScript.Count += ChangeSignalImages;
 
         FindGameObjects();
-        
+                
         LineRenderer renderer = _frameObject.GetComponent<LineRenderer>();
         Image greenSignalImage = _greenSignalObject.GetComponent<Image>();
         Image redSignalImage = _redSignalObject.GetComponent<Image>();
@@ -31,22 +36,23 @@ public class TrafficSignalsScript : MonoBehaviour
 
         InitializeTrafficSignals(renderer);
         InitializeSignalImages(greenSignalImage, redSignalImage);
-        InitializeCounters();
     }
 
     private void Update()
     {
-        // TODO: switch traffic signal
-        
-        
+        _remainingTime -= Time.deltaTime;
+        if (_remainingTime < 0)
+        {
+            _remainingTime = ChangeTime;
+            ChangeSignalImages();
+        }
     }
-    
+
     private void FindGameObjects()
     {
         _frameObject = gameObject.transform.Find("Frame").gameObject;
         _greenSignalObject = gameObject.transform.Find("GreenSignal").gameObject;
         _redSignalObject = gameObject.transform.Find("RedSignal").gameObject;
-        _counterObject = gameObject.transform.Find("Counter").gameObject;
     }
 
     private void InitializeTrafficSignals(LineRenderer renderer)
@@ -56,22 +62,18 @@ public class TrafficSignalsScript : MonoBehaviour
             case "LeftTopTrafficSignal":
                 SetLeftTopFramePosition(renderer);
                 SetLeftTopSignalPosition(_greenSignalObject, _redSignalObject);
-                SetLeftTopCounterPosition(_counterObject);
                 break;
             case "LeftBottomTrafficSignal":
                 SetLeftBottomFramePosition(renderer);
                 SetLeftBottomSignalPosition(_greenSignalObject, _redSignalObject);
-                SetLeftBottomCounterPosition(_counterObject);
                 break;
             case "RightTopTrafficSignal":
                 SetRightTopFramePosition(renderer);
                 SetRightTopSignalPosition(_greenSignalObject, _redSignalObject);
-                SetRightTopCounterPosition(_counterObject);
                 break;
             case "RightBottomTrafficSignal":
                 SetRightBottomFramePosition(renderer);
                 SetRightBottomSignalPosition(_greenSignalObject, _redSignalObject);
-                SetRightBottomCounterPosition(_counterObject);
                 break;
         }   
     }
@@ -81,18 +83,22 @@ public class TrafficSignalsScript : MonoBehaviour
         switch (name)
         {
             case "LeftTopTrafficSignal":
+                greenSignalImage.enabled = true;
                 redSignalImage.enabled = false;
                 _isGreenDictionary.Add(name, true);
                 break;
             case "LeftBottomTrafficSignal":
                 greenSignalImage.enabled = false;
+                redSignalImage.enabled = true;
                 _isGreenDictionary.Add(name, false);
                 break;
             case "RightTopTrafficSignal":
                 greenSignalImage.enabled = false;
+                redSignalImage.enabled = true;
                 _isGreenDictionary.Add(name, false);
                 break;
             case "RightBottomTrafficSignal":
+                greenSignalImage.enabled = true;
                 redSignalImage.enabled = false;
                 _isGreenDictionary.Add(name, true);
                 break;
@@ -199,25 +205,14 @@ public class TrafficSignalsScript : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    private void SetLeftTopCounterPosition(GameObject counterObject)
-    {
-        throw new System.NotImplementedException();
-    }
 
-    private void SetLeftBottomCounterPosition(GameObject counterObject)
+    private void ChangeSignalImages()
     {
-        throw new System.NotImplementedException();
-    }
+        Image greenSignalImage = _greenSignalObject.GetComponent<Image>();
+        Image redSignalImage = _redSignalObject.GetComponent<Image>();
 
-    private void SetRightTopCounterPosition(GameObject counterObject)
-    {
-        throw new System.NotImplementedException();
+        greenSignalImage.enabled = !greenSignalImage.enabled;
+        redSignalImage.enabled = !redSignalImage.enabled;
+        _isGreenDictionary[name] = greenSignalImage.enabled;
     }
-
-    private void SetRightBottomCounterPosition(GameObject counterObject)
-    {
-        throw new System.NotImplementedException();
-    }
-
 }

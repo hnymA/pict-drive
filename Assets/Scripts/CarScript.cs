@@ -74,7 +74,6 @@ public class CarScript : MonoBehaviour
                 transform.position = tmp;
                 break;
         }
-
     }
 
     private void OnTriggerEnter (Collider other)
@@ -99,6 +98,11 @@ public class CarScript : MonoBehaviour
         {
             hasStopped = true;            
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        hasStopped = false;
     }
 
     private void CheckTrafficMode(Collider other)
